@@ -1,16 +1,19 @@
-import React from "react";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
-import Head from "next/head";
-import ThirdwebGuideFooter from "../components/guide/ThirdwebGuideFooter";
-import "../styles/globals.css";
-import { AppProps } from "next/app";
+import React from 'react';
+import { ThirdwebProvider } from '@thirdweb-dev/react';
+import Head from 'next/head';
+import ThirdwebGuideFooter from '../components/guide/ThirdwebGuideFooter';
+import '../styles/globals.css';
+import { AppProps } from 'next/app';
 
 // This is the chain your dApp will work on.
-const activeChain = "mumbai";
+const activeChain = 'mumbai';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider activeChain={activeChain}>
+    <ThirdwebProvider
+      activeChain={activeChain}
+      clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
+    >
       <Head>
         <title>thirdweb Token Drop Example</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

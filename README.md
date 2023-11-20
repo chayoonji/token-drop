@@ -26,7 +26,7 @@ We also utilize the token drop's [claim phases](https://portal.thirdweb.com/pre-
 npx thirdweb create --template token-drop
 ```
 
-- Replace our demo token drop contract address (`0x5ec440E5965da9570CAa66402980c6D20cbe0663`) with your token drop contract address!
+- Replace our demo token drop contract address (`0x3aC47023051569ee4bA30Fe1a9761cC8e2BbC0EC`) with your token drop contract address!
 
 # Guide
 
@@ -38,7 +38,7 @@ It allows us to access all of the React SDK's helpful hooks anywhere in our appl
 
 ```jsx
 // This is the chain your dApp will work on.
-const activeChainId = "mumbai";
+const activeChainId = 'mumbai';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -66,8 +66,8 @@ We use the [useContract](https://docs.thirdweb.com/react/react.useContract) hook
 
 ```jsx
 const { contract: tokenDropContract } = useContract(
-  "0x5ec440E5965da9570CAa66402980c6D20cbe0663",
-  "token-drop"
+  '0x3aC47023051569ee4bA30Fe1a9761cC8e2BbC0EC',
+  'token-drop'
 );
 ```
 
@@ -78,7 +78,7 @@ We use the `claim` function and pass in the desired amount of tokens to claim in
 We store a value the user types into an input field in state:
 
 ```jsx
-const [amountToClaim, setAmountToClaim] = useState("");
+const [amountToClaim, setAmountToClaim] = useState('');
 
 // ...
 
@@ -91,9 +91,9 @@ const [amountToClaim, setAmountToClaim] = useState("");
   />
   <Web3Button
     colorMode="dark"
-    contractAddress="0x5ec440E5965da9570CAa66402980c6D20cbe0663"
+    contractAddress="0x3aC47023051569ee4bA30Fe1a9761cC8e2BbC0EC"
     action={(contract) => contract.erc20.claim(amountToClaim)}
-    onSuccess={() => alert("Claimed!")}
+    onSuccess={() => alert('Claimed!')}
     onError={(err) => alert(err)}
   >
     Claim Tokens

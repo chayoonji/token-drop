@@ -8,16 +8,16 @@ import {
   useContractMetadata,
   useTokenSupply,
   Web3Button,
-} from "@thirdweb-dev/react";
-import { BigNumber, utils } from "ethers";
-import Image from "next/image";
-import { useMemo, useState } from "react";
-import styles from "../styles/Home.module.css";
-import { parseIneligibility } from "../utils/parseIneligibility";
+} from '@thirdweb-dev/react';
+import { BigNumber, utils } from 'ethers';
+import Image from 'next/image';
+import { useMemo, useState } from 'react';
+import styles from '../styles/Home.module.css';
+import { parseIneligibility } from '../utils/parseIneligibility';
 
 const Home = () => {
-  const tokenAddress = "0x03728725240b021887355c943d040BF933F3d5F0";
-  const { contract } = useContract(tokenAddress, "token-drop");
+  const tokenAddress = '0x3D10e53Cd9fbd617E2807bCE016C1c86a3aafF9F';
+  const { contract } = useContract(tokenAddress, 'token-drop');
   const address = useAddress();
   const [quantity, setQuantity] = useState(1);
   const { data: contractMetadata } = useContractMetadata(contract);
@@ -27,10 +27,10 @@ const Home = () => {
     contract,
     address
   );
-  const claimerProofs = useClaimerProofs(contract, address || "");
+  const claimerProofs = useClaimerProofs(contract, address || '');
   const claimIneligibilityReasons = useClaimIneligibilityReasons(contract, {
     quantity,
-    walletAddress: address || "",
+    walletAddress: address || '',
   });
 
   const claimedSupply = useTokenSupply(contract);
@@ -52,7 +52,7 @@ const Home = () => {
       BigNumber.from(claimedSupply.data?.value || 0)
     );
     if (n.gte(1_000_000_000)) {
-      return "";
+      return '';
     }
     return n.toString();
   }, [totalAvailableSupply, claimedSupply]);
@@ -100,7 +100,7 @@ const Home = () => {
     const snapshotClaimable = claimerProofs.data?.maxClaimable;
 
     if (snapshotClaimable) {
-      if (snapshotClaimable === "0") {
+      if (snapshotClaimable === '0') {
         // allowed unlimited for the snapshot
         bnMaxClaimable = BigNumber.from(1_000_000_000);
       } else {
@@ -173,7 +173,7 @@ const Home = () => {
   );
   const buttonText = useMemo(() => {
     if (isSoldOut) {
-      return "Sold Out";
+      return 'Sold Out';
     }
 
     if (canClaim) {
@@ -181,7 +181,7 @@ const Home = () => {
         activeClaimCondition.data?.currencyMetadata.value || 0
       );
       if (pricePerToken.eq(0)) {
-        return "Mint (Free)";
+        return 'Mint (Free)';
       }
       return `Mint (${priceToMint})`;
     }
@@ -189,10 +189,10 @@ const Home = () => {
       return parseIneligibility(claimIneligibilityReasons.data, quantity);
     }
     if (buttonLoading) {
-      return "Checking eligibility...";
+      return 'Checking eligibility...';
     }
 
-    return "Claiming not available";
+    return 'Claiming not available';
   }, [
     isSoldOut,
     canClaim,
@@ -214,7 +214,7 @@ const Home = () => {
           ))}
 
       {claimConditions.data?.length === 0 ||
-        (claimConditions.data?.every((cc) => cc.maxClaimableSupply === "0") && (
+        (claimConditions.data?.every((cc) => cc.maxClaimableSupply === '0') && (
           <p>
             This drop is not ready to be minted yet. (No claim condition set)
           </p>
@@ -230,17 +230,19 @@ const Home = () => {
               alt={contractMetadata?.name!}
               width={200}
               height={200}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: 'contain' }}
             />
           )}
 
           <h2 className={styles.title}>Claim Tokens</h2>
           <p className={styles.explain}>
-            Claim ERC20 tokens from{" "}
+            Claim ERC20 tokens from{' '}
             <span className={styles.pink}>{contractMetadata?.name}</span>
           </p>
         </>
       )}
+
+      <div>Token Contract Address: {tokenAddress}</div>
 
       <hr className={styles.divider} />
 
@@ -265,7 +267,7 @@ const Home = () => {
           theme="dark"
           contractAddress={tokenAddress}
           action={(contract) => contract.erc20.claim(quantity)}
-          onSuccess={() => alert("Claimed!")}
+          onSuccess={() => alert('Claimed!')}
           onError={(err) => alert(err)}
         >
           {buttonText}
